@@ -83,7 +83,7 @@ public class User {
         this.roles = roles;
     }
 
-    /*
+/*
  TODO [Reverse Engineering] create field to map the 'user_role' column
  Available actions: Define target Java type | Uncomment as is | Remove column mapping
     @Column(name = "user_role", columnDefinition = "user_role_enum")
