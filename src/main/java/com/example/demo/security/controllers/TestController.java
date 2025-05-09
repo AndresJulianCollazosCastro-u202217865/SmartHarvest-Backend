@@ -23,4 +23,9 @@ public class TestController {
     public String userEndpoint() {
         return "This is the user endpoint, accessible to users with USER or ADMIN role.";
     }
+
+    @GetMapping("/error-prueba")
+    public String errorPrueba() {
+        throw new IllegalArgumentException("Este es un error de prueba para verificar el logging");
+    }
 }
