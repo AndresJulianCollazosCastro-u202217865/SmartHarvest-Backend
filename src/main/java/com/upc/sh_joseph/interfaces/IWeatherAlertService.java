@@ -1,24 +1,24 @@
 package com.upc.sh_joseph.interfaces;
 
-import com.example.smartharvest.dtos.AlertReportDto;
-import com.example.smartharvest.dtos.WeatheralertDto;
-import com.example.smartharvest.entities.WeatherAlertEstate;
-import com.example.smartharvest.entities.WeatherAlertType;
+import com.upc.sh_joseph.dtos.AlertReportDto;
+import com.upc.sh_joseph.dtos.WeatheralertDto;
+import com.upc.sh_joseph.entities.WeatherAlertEstate;
+import com.upc.sh_joseph.entities.WeatherAlertType;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IWeatherAlertService {
-    public WeatheralertDto saveWeatherAlert(WeatheralertDto weatherAlertDto);
-  //
-    public List<WeatheralertDto> findVisibleAlertsByLocationAndOptionalTypeAndStatus(String location, WeatherAlertType type, WeatherAlertEstate status, Long userId);
-  //
+  WeatheralertDto saveWeatherAlert(WeatheralertDto weatherAlertDto);
 
-    public void updateAlertEstado(Long alertId, Long userId);
+  List<WeatheralertDto> findVisibleAlertsByOptionalTypeAndStatus(WeatherAlertType type, WeatherAlertEstate status, Long userId);
 
-    public List<WeatheralertDto> findRecentVisibleAlertsByUser(Long userId, LocalDateTime fromDateTime);
+  void updateAlertEstado(Long alertId, Long userId);
 
-    public void logicallyDeleteAlert(Long alertId, Long userId);
+  List<WeatheralertDto> findRecentVisibleAlertsByUser(Long userId, LocalDateTime fromDateTime);
 
-    public List<AlertReportDto> countAlertsByTypeInLocationAndUser(String location, Long userId);
+  void logicallyDeleteAlert(Long alertId, Long userId);
+
+  List<AlertReportDto> countAlertsByTypeAndUser(Long userId);
 }
+

@@ -1,7 +1,7 @@
 package com.upc.sh_joseph.dtos;
 
-import com.example.smartharvest.entities.WeatherAlertEstate;
-import com.example.smartharvest.entities.WeatherAlertType;
+import com.upc.sh_joseph.entities.WeatherAlertEstate;
+import com.upc.sh_joseph.entities.WeatherAlertType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

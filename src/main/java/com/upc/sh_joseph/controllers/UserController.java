@@ -1,7 +1,7 @@
 package com.upc.sh_joseph.controllers;
 
-import com.example.smartharvest.dtos.UserDto;
-import com.example.smartharvest.interfaces.IUserService;
+import com.upc.sh_joseph.dtos.UserDto;
+import com.upc.sh_joseph.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

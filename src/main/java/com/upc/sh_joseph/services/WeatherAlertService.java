@@ -1,13 +1,14 @@
 package com.upc.sh_joseph.services;
 
-import com.example.smartharvest.dtos.AlertReportDto;
-import com.example.smartharvest.dtos.WeatheralertDto;
-import com.example.smartharvest.entities.WeatherAlertEstate;
-import com.example.smartharvest.entities.WeatherAlertType;
-import com.example.smartharvest.entities.Weatheralert;
-import com.example.smartharvest.interfaces.IWeatherAlertService;
-import com.example.smartharvest.repositories.UserRepository;
-import com.example.smartharvest.repositories.WeatherAlertRepository;
+import com.upc.sh_joseph.dtos.AlertReportDto;
+import com.upc.sh_joseph.dtos.WeatheralertDto;
+import com.upc.sh_joseph.entities.User;
+import com.upc.sh_joseph.entities.WeatherAlertEstate;
+import com.upc.sh_joseph.entities.WeatherAlertType;
+import com.upc.sh_joseph.entities.Weatheralert;
+import com.upc.sh_joseph.interfaces.IWeatherAlertService;
+import com.upc.sh_joseph.repositories.UserRepository;
+import com.upc.sh_joseph.repositories.WeatherAlertRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,20 +43,19 @@ public class WeatherAlertService implements IWeatherAlertService {
         weatherAlertRepository.updateAlertEstado(alertId, userId, WeatherAlertEstate.LEIDA);
     }
 
-    //
+    // 🔄 Actualizado: ya no recibe location
     @Override
     @Transactional
-    public List<WeatheralertDto> findVisibleAlertsByLocationAndOptionalTypeAndStatus(String location, WeatherAlertType type, WeatherAlertEstate status, Long userId) {
-        List<Weatheralert> weatheralerts = weatherAlertRepository.findVisibleAlertsByLocationAndOptionalTypeAndStatus(location, type, status, userId);
+    public List<WeatheralertDto> findVisibleAlertsByOptionalTypeAndStatus(WeatherAlertType type, WeatherAlertEstate status, Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        String location = user.getUserLocation(); // usamos su única ubicación registrada
+
+        List<Weatheralert> weatheralerts = weatherAlertRepository.findVisibleAlertsByOptionalTypeAndStatus(type, status, userId);
+
         return weatheralerts.stream()
-                .map(weatherAlert -> modelMapper.map(weatherAlert, WeatheralertDto.class))
-                .collect(Collectors.toList());
-        /*return weatherAlertRepository.findVisibleAlertsByLocationAndOptionalTypeAndStatus(location, type, status, userId)
-                .stream()
                 .map(alert -> modelMapper.map(alert, WeatheralertDto.class))
-                .collect(Collectors.toList());*/
+                .collect(Collectors.toList());
     }
-    //
 
     @Override
     @Transactional
@@ -72,9 +72,13 @@ public class WeatherAlertService implements IWeatherAlertService {
         weatherAlertRepository.logicallyDeleteAlert(alertId, userId);
     }
 
+    // 🔄 Actualizado: ya no recibe location
     @Override
     @Transactional
-    public List<AlertReportDto> countAlertsByTypeInLocationAndUser(String location, Long userId) {
-        return weatherAlertRepository.countAlertsByTypeInLocationAndUser(location, userId);
+    public List<AlertReportDto> countAlertsByTypeAndUser(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        return weatherAlertRepository.countAlertsByTypeAndUser(userId);
     }
 }
+

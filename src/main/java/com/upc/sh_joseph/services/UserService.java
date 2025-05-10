@@ -1,10 +1,10 @@
 package com.upc.sh_joseph.services;
 
 
-import com.example.smartharvest.dtos.UserDto;
-import com.example.smartharvest.entities.User;
-import com.example.smartharvest.interfaces.IUserService;
-import com.example.smartharvest.repositories.UserRepository;
+import com.upc.sh_joseph.dtos.UserDto;
+import com.upc.sh_joseph.entities.User;
+import com.upc.sh_joseph.interfaces.IUserService;
+import com.upc.sh_joseph.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
