@@ -19,5 +19,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "INSERT INTO user_roles (user_id,role_id) VALUES (:user_id, :rol_id)", nativeQuery = true)
     Integer addUserRole(@Param("user_id") Long user_id,@Param("rol_id") Long rol_Id);
 
-    Optional<Object> findByUserName(String userName, Limit limit);
 }

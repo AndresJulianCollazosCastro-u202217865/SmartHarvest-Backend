@@ -1,19 +1,28 @@
 package com.example.demo.controllers;
 
+import com.example.demo.assembler.LearningResourceDtoModelAssembler;
 import com.example.demo.dtos.LearningResourceDto;
 import com.example.demo.interfaces.ILearningResourceService;
-import com.example.demo.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @RestController
 @RequestMapping("/api")
 public class LearningResourceController {
+
     @Autowired
     private ILearningResourceService learningResourceService;
+
+    @Autowired
+    private LearningResourceDtoModelAssembler assembler;
 
     @PostMapping("/learningResource")
     public ResponseEntity<LearningResourceDto> grabarLearningResource(@RequestBody LearningResourceDto learningResourceDto) {
@@ -26,8 +35,13 @@ public class LearningResourceController {
     }
 
     @GetMapping("/lista/learningResource")
-    public ResponseEntity<List<LearningResourceDto>> listarLearningResource() {
-        return ResponseEntity.ok(learningResourceService.listarLearningResource());
+    public CollectionModel<EntityModel<LearningResourceDto>> listarLearningResource() {
+        var dtos = learningResourceService.listarLearningResource();
+        var models = dtos.stream()
+                .map(assembler::toModel)
+                .toList();
+        return CollectionModel.of(models,
+                linkTo(methodOn(LearningResourceController.class).listarLearningResource()).withSelfRel());
     }
 
 

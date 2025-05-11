@@ -52,6 +52,7 @@ public class SecurityConfig {
                         .requestMatchers("/SmartHarvest/user", "/SmartHarvest/assign-role/**").permitAll()
                         .requestMatchers("/api/admin").hasRole("ADMIN")
                         .requestMatchers( "/api/user").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/dashboard").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
