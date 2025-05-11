@@ -8,13 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping("/api/recomendaciones")
+@RequestMapping("/SmartHarvest/recommendations")
 public class RecommendationController {
     @Autowired
     private RecommendationService recommendationService;
@@ -22,12 +23,14 @@ public class RecommendationController {
     @Autowired
     private RecommendationModelAssembler assembler;
 
-    @PostMapping("/recommendation")
+    @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<RecommendationDto> saveRecommendation(@RequestBody RecommendationDto recommendationDto) {
         return ResponseEntity.ok(recommendationService.saveRecommendation(recommendationDto));
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public CollectionModel<EntityModel<RecommendationDto>> getRecommendation() {
         var dtos = recommendationService.getRecommendation();
         var models = dtos.stream()

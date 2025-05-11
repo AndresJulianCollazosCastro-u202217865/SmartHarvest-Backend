@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/SmartHarvest/learning-resources")
 public class LearningResourceController {
 
     @Autowired
@@ -24,17 +25,20 @@ public class LearningResourceController {
     @Autowired
     private LearningResourceDtoModelAssembler assembler;
 
-    @PostMapping("/learningResource")
+    @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<LearningResourceDto> grabarLearningResource(@RequestBody LearningResourceDto learningResourceDto) {
         return ResponseEntity.ok(learningResourceService.grabarLearningResource(learningResourceDto));
     }
 
-    @GetMapping("/learningResourceCategoria")
+    @GetMapping("/por-categoria")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<List<LearningResourceDto>> obtenerLearningResourceCategoria(String lrCategoria) {
         return ResponseEntity.ok(learningResourceService.obtenerLearningResourceCategoria(lrCategoria));
     }
 
-    @GetMapping("/lista/learningResource")
+    @GetMapping
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public CollectionModel<EntityModel<LearningResourceDto>> listarLearningResource() {
         var dtos = learningResourceService.listarLearningResource();
         var models = dtos.stream()
@@ -43,8 +47,4 @@ public class LearningResourceController {
         return CollectionModel.of(models,
                 linkTo(methodOn(LearningResourceController.class).listarLearningResource()).withSelfRel());
     }
-
-
-
-
 }

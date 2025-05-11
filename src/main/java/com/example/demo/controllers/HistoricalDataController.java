@@ -5,18 +5,17 @@ import com.example.demo.dtos.HistoricalDataDto;
 import com.example.demo.services.HistoricalDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/SmartHarvest/historical-data")
 public class HistoricalDataController {
     @Autowired
     private HistoricalDataService historicalDataService;
 
-    @GetMapping("/historicalData")
+    @PostMapping
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<HistoricalDataDto> getHistoricalData(@RequestBody HistoricalDataDto historicalDataDto) {
         return ResponseEntity.ok(historicalDataService.getHistoricalData(historicalDataDto));
     }

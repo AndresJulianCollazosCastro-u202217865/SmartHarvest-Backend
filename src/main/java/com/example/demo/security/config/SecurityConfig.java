@@ -48,11 +48,15 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/authenticate").permitAll()
-                        .requestMatchers("/SmartHarvest/user", "/SmartHarvest/assign-role/**").permitAll()
-                        .requestMatchers("/api/admin").hasRole("ADMIN")
-                        .requestMatchers( "/api/user").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/api/dashboard").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/SmartHarvest/user").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/SmartHarvest/dashboard").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/SmartHarvest/assign-role/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/admin").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/user").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/SmartHarvest/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/SmartHarvest/**").hasRole("ADMIN")
+                        .requestMatchers("/error-prueba").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
