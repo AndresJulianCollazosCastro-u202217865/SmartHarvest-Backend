@@ -1,6 +1,7 @@
 package com.example.demo.entities;
 
 import com.example.demo.security.entities.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,10 +15,12 @@ import lombok.Setter;
 public class Recommendation {
     @Id
     @Column(name = "recomendationId", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long recommendationId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "userId", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User user;
 
     @Column(name = "rTitle", length = Integer.MAX_VALUE)
@@ -26,8 +29,9 @@ public class Recommendation {
     @Column(name = "rDescription", length = Integer.MAX_VALUE)
     private String rDescription;
 
-    @Column(name = "rCategory", columnDefinition = "recomendation_category_enum")
-    private Object rCategory;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "rCategory")
+    private RecommendationCategory rCategory;
 
     public Long getRecommendationId() {
         return recommendationId;
@@ -61,11 +65,11 @@ public class Recommendation {
         this.rDescription = rDescription;
     }
 
-    public Object getrCategory() {
+    public RecommendationCategory getrCategory() {
         return rCategory;
     }
 
-    public void setrCategory(Object rCategory) {
+    public void setrCategory(RecommendationCategory rCategory) {
         this.rCategory = rCategory;
     }
 }

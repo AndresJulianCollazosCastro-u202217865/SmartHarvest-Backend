@@ -16,7 +16,7 @@ public class HistoricalDataController {
 
     @PostMapping
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    public ResponseEntity<HistoricalDataDto> getHistoricalData(@RequestBody HistoricalDataDto historicalDataDto) {
+    public ResponseEntity<HistoricalDataDto> addHistoricalData(@RequestBody HistoricalDataDto historicalDataDto) {
         return ResponseEntity.ok(historicalDataService.getHistoricalData(historicalDataDto));
     }
 }

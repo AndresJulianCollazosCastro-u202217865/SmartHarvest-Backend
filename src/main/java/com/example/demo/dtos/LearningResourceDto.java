@@ -17,7 +17,7 @@ public class LearningResourceDto implements Serializable {
     String lrDescription;
     String lrCategory;
     String lrLink;
-    UserDto userid;
+    UserDto userDto;
 
     public Long getId() {
         return id;
@@ -59,11 +59,11 @@ public class LearningResourceDto implements Serializable {
         this.lrLink = lrLink;
     }
 
-    public UserDto getUserid() {
-        return userid;
+    public UserDto getUserDto() {
+        return userDto;
     }
 
-    public void setUserid(UserDto userid) {
-        this.userid = userid;
+    public void setUserDto(UserDto userDto) {
+        this.userDto = userDto;
     }
 }

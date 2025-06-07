@@ -1,6 +1,7 @@
 package com.example.demo.entities;
 
 
+import com.example.demo.security.dtos.UserDto;
 import com.example.demo.security.entities.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 public class HistoricalData {
     @Id
     @Column(name = "historicalId", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long historicalDataId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

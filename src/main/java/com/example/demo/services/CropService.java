@@ -5,9 +5,12 @@ import com.example.demo.entities.Crop;
 import com.example.demo.interfaces.ICropService;
 import com.example.demo.repositories.CropRepository;
 
+import com.example.demo.security.entities.User;
+import com.example.demo.security.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,10 +23,14 @@ public class CropService implements ICropService {
 
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private UserRepository userRepository;
 
+    @Transactional
     @Override
     public CropDto crearCultivo(CropDto dto) {
         Crop crop = modelMapper.map(dto, Crop.class);
+
         crop = cropRepository.save(crop);
         return modelMapper.map(crop, CropDto.class);
     }
@@ -42,12 +49,16 @@ public class CropService implements ICropService {
         return modelMapper.map(crop, CropDto.class);
     }
 
+    @Transactional
     @Override
     public CropDto actualizarCultivo(Long id, CropDto dto) {
         Crop crop = cropRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cultivo no encontrado"));
+
         modelMapper.map(dto, crop);
-        return modelMapper.map(cropRepository.save(crop), CropDto.class);
+
+        Crop updated = cropRepository.save(crop);
+        return modelMapper.map(updated, CropDto.class);
     }
 
     @Override

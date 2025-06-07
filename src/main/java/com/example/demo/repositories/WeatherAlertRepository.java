@@ -16,14 +16,14 @@ import java.util.List;
 public interface WeatherAlertRepository extends JpaRepository<Weatheralert, Long> {
     //US19: Marcar alerta como leída
     @Modifying
-    @Query("UPDATE Weatheralert w SET w.estado = :estado WHERE w.id = :alertId AND w.userid = :userId")
+    @Query("UPDATE Weatheralert w SET w.estado = :estado WHERE w.id = :alertId AND w.userid.userId = :userId")
     void updateAlertEstado(@Param("alertId") Long alertId, @Param("userId") Long userId, @Param("estado") WeatherAlertEstate estado);
 
     //
     // US15: Consulta de Alertas por Tipo y Estado
     @Query("""
     SELECT w FROM Weatheralert w
-    WHERE w.userid = :userId
+    WHERE w.userid.userId = :userId
     AND w.visible = true
     AND (:type IS NULL OR w.waType = :type)
     AND (:status IS NULL OR w.estado = :status)
@@ -36,17 +36,17 @@ public interface WeatherAlertRepository extends JpaRepository<Weatheralert, Long
     //
 
     //US16: Consulta de Alertas Recientes desde una Fecha Específica
-    @Query("SELECT w FROM Weatheralert w WHERE w.userid = :userId AND w.waDate >= :fromDateTime AND w.visible = true ORDER BY w.waDate DESC")
+    @Query("SELECT w FROM Weatheralert w WHERE w.userid.userId = :userId AND w.waDate >= :fromDateTime AND w.visible = true ORDER BY w.waDate DESC")
     List<Weatheralert> findRecentVisibleAlertsByUser(@Param("userId") Long userId,
                                                      @Param("fromDateTime") LocalDateTime fromDateTime);
 
     //US18: Generación de Reporte de Alertas por Tipo de Alerta
-    @Query("SELECT new com.example.demo.dtos.AlertReportDto(w.waType, COUNT(w)) FROM Weatheralert w WHERE w.userid = :userId GROUP BY w.waType")
+    @Query("SELECT new com.example.demo.dtos.AlertReportDto(w.waType, COUNT(w)) FROM Weatheralert w WHERE w.userid.userId = :userId GROUP BY w.waType")
     List<AlertReportDto> countAlertsByTypeAndUser(@Param("userId") Long userId);
 
     // US17: Eliminación Lógica de Alertas
     @Modifying
-    @Query("UPDATE Weatheralert w SET w.visible = false WHERE w.id = :alertId AND w.userid = :userId")
+    @Query("UPDATE Weatheralert w SET w.visible = false WHERE w.id = :alertId AND w.userid.userId = :userId")
     void logicallyDeleteAlert(@Param("alertId") Long alertId, @Param("userId") Long userId);
 
 }

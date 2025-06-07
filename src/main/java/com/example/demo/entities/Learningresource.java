@@ -10,6 +10,7 @@ import lombok.Setter;
 public class Learningresource {
     @Id
     @Column(name = "lr_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

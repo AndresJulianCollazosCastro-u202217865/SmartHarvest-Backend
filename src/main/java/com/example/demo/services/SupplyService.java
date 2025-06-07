@@ -10,6 +10,7 @@ import com.example.demo.security.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,13 +51,25 @@ public class SupplyService implements ISupplyService {
                 .orElseThrow(() -> new RuntimeException("Insumo no encontrado"));
         return modelMapper.map(supply, SupplyDto.class);
     }
-
+    @Transactional
     @Override
     public SupplyDto actualizarInsumo(Long id, SupplyDto dto) {
-        Supply supply = supplyRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Insumo no encontrado"));
-        modelMapper.map(dto, supply); // actualiza campos
-        return modelMapper.map(supplyRepository.save(supply), SupplyDto.class);
+        Supply updatedSupply = supplyRepository.findById(id)
+                .map(existingSupply -> {
+                    existingSupply.setName(dto.getName());
+                    existingSupply.setQuantity(dto.getQuantity());
+                    existingSupply.setUnit(dto.getUnit());
+                    existingSupply.setDescription(dto.getDescription());
+                    existingSupply.setCrop(cropRepository.findById(id).get());
+                    return supplyRepository.save(existingSupply);
+                })
+                .orElseGet(() -> {
+                    Supply newSupply = modelMapper.map(dto, Supply.class);
+                    newSupply.setId(id);
+                    return supplyRepository.save(newSupply);
+                });
+
+        return modelMapper.map(updatedSupply, SupplyDto.class);
     }
 
     @Override

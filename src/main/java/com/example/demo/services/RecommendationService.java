@@ -5,6 +5,8 @@ import com.example.demo.dtos.RecommendationDto;
 import com.example.demo.entities.Recommendation;
 import com.example.demo.interfaces.IRecommendationService;
 import com.example.demo.repositories.RecommendationRepository;
+import com.example.demo.security.entities.User;
+import com.example.demo.security.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +23,14 @@ public class RecommendationService implements IRecommendationService {
     @Autowired
     private ModelMapper modelMapper;
 
+
+    @Transactional
     public RecommendationDto saveRecommendation(RecommendationDto recommendationDto) {
         Recommendation recommendation = modelMapper.map(recommendationDto, Recommendation.class);
         Recommendation save = recommendationRepository.save(recommendation);
         return modelMapper.map(save, RecommendationDto.class);
     }
+
 
     @Override
     public List<RecommendationDto> getRecommendation() {

@@ -2,6 +2,7 @@ package com.example.demo.entities;
 
 
 import com.example.demo.security.entities.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 public class Weatheralert {
     @Id
     @Column(name = "wa_alert_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -26,6 +28,7 @@ public class Weatheralert {
     @Column(name = "wa_description", length = Integer.MAX_VALUE)
     private String waDescription;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @Column(name = "wa_date")
     private LocalDateTime waDate;
 

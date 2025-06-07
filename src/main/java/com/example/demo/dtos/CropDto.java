@@ -1,5 +1,7 @@
 package com.example.demo.dtos;
 
+import com.example.demo.security.dtos.UserDto;
+import com.example.demo.security.entities.User;
 import lombok.*;
 
 import java.io.Serializable;
@@ -17,6 +19,7 @@ public class CropDto implements Serializable {
     LocalDate startDate;
     LocalDate endDate;
     Long nextCropId;
+    UserDto user;
 
     public Long getId() {
         return id;
@@ -80,5 +83,13 @@ public class CropDto implements Serializable {
 
     public void setNextCropId(Long nextCropId) {
         this.nextCropId = nextCropId;
+    }
+
+    public UserDto getUser() {
+        return user;
+    }
+
+    public void setUser(UserDto user) {
+        this.user = user;
     }
 }

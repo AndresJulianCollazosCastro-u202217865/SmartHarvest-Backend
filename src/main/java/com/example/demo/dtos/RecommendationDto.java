@@ -1,5 +1,6 @@
 package com.example.demo.dtos;
 
+import com.example.demo.security.dtos.UserDto;
 import com.example.demo.security.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class RecommendationDto implements Serializable {
     Long recommendationId;
-    User user;
+    UserDto user;
     String rTitle;
     String rDescription;
     Object rCategory;
@@ -28,11 +29,11 @@ public class RecommendationDto implements Serializable {
         this.recommendationId = recommendationId;
     }
 
-    public User getUser() {
+    public UserDto getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDto user) {
         this.user = user;
     }
 

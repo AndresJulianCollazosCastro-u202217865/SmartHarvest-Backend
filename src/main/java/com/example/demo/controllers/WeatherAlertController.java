@@ -8,6 +8,7 @@ import com.example.demo.entities.WeatherAlertEstate;
 import com.example.demo.entities.WeatherAlertType;
 import com.example.demo.interfaces.IWeatherAlertService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
@@ -63,9 +64,9 @@ public class WeatherAlertController {
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<List<WeatheralertDto>> findRecentVisibleAlertsByUser(
             @RequestParam Long userId,
-            @RequestParam String fromDate) {
-        LocalDateTime dateTime = LocalDate.parse(fromDate).atStartOfDay();
-        return ResponseEntity.ok(weatherAlertService.findRecentVisibleAlertsByUser(userId, dateTime));
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate) {
+
+        return ResponseEntity.ok(weatherAlertService.findRecentVisibleAlertsByUser(userId, fromDate.atStartOfDay()));
     }
 
     // US17: Eliminación Lógica de Alertas

@@ -8,6 +8,7 @@ import com.example.demo.entities.WeatherAlertType;
 import com.example.demo.entities.Weatheralert;
 import com.example.demo.interfaces.IWeatherAlertService;
 import com.example.demo.repositories.WeatherAlertRepository;
+import com.example.demo.security.dtos.UserDto;
 import com.example.demo.security.entities.User;
 import com.example.demo.security.repositories.UserRepository;
 import jakarta.transaction.Transactional;
@@ -34,8 +35,19 @@ public class WeatherAlertService implements IWeatherAlertService {
     @Transactional
     public WeatheralertDto saveWeatherAlert(WeatheralertDto weatherAlertDto) {
         Weatheralert weatherAlert = modelMapper.map(weatherAlertDto, Weatheralert.class);
+        if (weatherAlert.getWaDate() == null) {
+            weatherAlert.setWaDate(LocalDateTime.now());
+        }
+        Long userId = weatherAlertDto.getUserid().getId();
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        weatherAlert.setUserid(user);
         Weatheralert saved = weatherAlertRepository.save(weatherAlert);
-        return modelMapper.map(saved, WeatheralertDto.class);
+        WeatheralertDto savedDto = modelMapper.map(saved, WeatheralertDto.class);
+        UserDto userDto = modelMapper.map(saved.getUserid(), UserDto.class);
+        savedDto.setUserid(userDto);
+
+        return savedDto;
     }
 
     @Override
@@ -50,7 +62,6 @@ public class WeatherAlertService implements IWeatherAlertService {
         weatherAlertRepository.updateAlertEstado(alertId, userId, WeatherAlertEstate.LEIDA);
     }
 
-    // 🔄 Actualizado: ya no recibe location
     @Override
     @Transactional
     public List<WeatheralertDto> findVisibleAlertsByOptionalTypeAndStatus(WeatherAlertType type, WeatherAlertEstate status, Long userId) {
@@ -79,7 +90,6 @@ public class WeatherAlertService implements IWeatherAlertService {
         weatherAlertRepository.logicallyDeleteAlert(alertId, userId);
     }
 
-    // 🔄 Actualizado: ya no recibe location
     @Override
     @Transactional
     public List<AlertReportDto> countAlertsByTypeAndUser(Long userId) {

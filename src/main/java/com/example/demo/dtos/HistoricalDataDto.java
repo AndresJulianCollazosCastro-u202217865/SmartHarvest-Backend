@@ -3,6 +3,7 @@ package com.example.demo.dtos;
 
 import com.example.demo.entities.Crop;
 import com.example.demo.entities.Weatheralert;
+import com.example.demo.security.dtos.UserDto;
 import com.example.demo.security.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,10 +19,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class HistoricalDataDto implements Serializable {
     Long historicalDataId;
-    User user;
+    UserDto user;
     LocalDate hDate;
-    Crop crop;
-    Weatheralert weatheralert;
+    CropDto crop;
+    WeatheralertDto weatheralert;
 
     public Long getHistoricalDataId() {
         return historicalDataId;
@@ -31,11 +32,11 @@ public class HistoricalDataDto implements Serializable {
         this.historicalDataId = historicalDataId;
     }
 
-    public User getUser() {
+    public UserDto getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDto user) {
         this.user = user;
     }
 
@@ -47,19 +48,19 @@ public class HistoricalDataDto implements Serializable {
         this.hDate = hDate;
     }
 
-    public Crop getCrop() {
-        return crop;
-    }
-
-    public void setCrop(Crop crop) {
-        this.crop = crop;
-    }
-
-    public Weatheralert getWeatheralert() {
+    public WeatheralertDto getWeatheralert() {
         return weatheralert;
     }
 
-    public void setWeatheralert(Weatheralert weatheralert) {
+    public void setWeatheralert(WeatheralertDto weatheralert) {
         this.weatheralert = weatheralert;
+    }
+
+    public CropDto getCrop() {
+        return crop;
+    }
+
+    public void setCrop(CropDto crop) {
+        this.crop = crop;
     }
 }

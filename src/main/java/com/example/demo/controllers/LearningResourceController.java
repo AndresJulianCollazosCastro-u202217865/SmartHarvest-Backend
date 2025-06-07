@@ -31,9 +31,9 @@ public class LearningResourceController {
         return ResponseEntity.ok(learningResourceService.grabarLearningResource(learningResourceDto));
     }
 
-    @GetMapping("/por-categoria")
+    @GetMapping("/{lrCategoria}")
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    public ResponseEntity<List<LearningResourceDto>> obtenerLearningResourceCategoria(String lrCategoria) {
+    public ResponseEntity<List<LearningResourceDto>> obtenerLearningResourceCategoria(@PathVariable String lrCategoria) {
         return ResponseEntity.ok(learningResourceService.obtenerLearningResourceCategoria(lrCategoria));
     }
 

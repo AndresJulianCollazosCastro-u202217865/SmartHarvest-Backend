@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -31,12 +33,7 @@ public class RecommendationController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    public CollectionModel<EntityModel<RecommendationDto>> getRecommendation() {
-        var dtos = recommendationService.getRecommendation();
-        var models = dtos.stream()
-                .map(assembler::toModel)
-                .toList();
-        return CollectionModel.of(models,
-                linkTo(methodOn(RecommendationController.class).getRecommendation()).withSelfRel());
+    public ResponseEntity<List<RecommendationDto>> getRecommendation() {
+        return ResponseEntity.ok(recommendationService.getRecommendation()) ;
     }
 }

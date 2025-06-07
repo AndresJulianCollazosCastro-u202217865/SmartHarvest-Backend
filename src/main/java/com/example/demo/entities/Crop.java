@@ -1,5 +1,6 @@
 package com.example.demo.entities;
 
+import com.example.demo.security.dtos.UserDto;
 import com.example.demo.security.entities.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -39,11 +40,10 @@ public class Crop {
     @Column(name = "crop_endDate", length = Integer.MAX_VALUE)
     private LocalDate endDate;
 
-    @Column(name = "next_crop_id")
+    @Column(name = "next_crop_id", nullable = true)
     private Long nextCropId;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -119,7 +119,7 @@ public class Crop {
         this.user = user;
     }
 
-    /*
+/*
  TODO [Reverse Engineering] create field to map the 'crop_type' column
  Available actions: Define target Java type | Uncomment as is | Remove column mapping
     @Column(name = "crop_type", columnDefinition = "crop_type_enum")

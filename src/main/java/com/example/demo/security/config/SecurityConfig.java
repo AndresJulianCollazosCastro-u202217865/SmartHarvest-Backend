@@ -52,11 +52,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/SmartHarvest/user").permitAll()
                         .requestMatchers(HttpMethod.GET, "/SmartHarvest/dashboard").permitAll()
                         .requestMatchers(HttpMethod.POST, "/SmartHarvest/assign-role/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/admin").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/user").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/SmartHarvest/alertas/logical-delete/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/SmartHarvest/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/SmartHarvest/**").hasRole("ADMIN")
-                        .requestMatchers("/error-prueba").permitAll()
+                        .requestMatchers("/SmartHarvest/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

@@ -29,7 +29,7 @@ public class CostService implements ICostService {
     @Override
     public CostDto registrarCostos(CostDto dto) {
         Cost cost = modelMapper.map(dto, Cost.class);
-        Crop crop = cropRepository.findById(dto.getId())
+        Crop crop = cropRepository.findById(dto.getCrop().getId())
                 .orElseThrow(() -> new RuntimeException("Cultivo no encontrado"));
         cost.setCrop(crop);
         Cost saved = costRepository.save(cost);
