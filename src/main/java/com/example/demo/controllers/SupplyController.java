@@ -13,6 +13,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/SmartHarvest/supplies")
+@CrossOrigin(origins = "http://localhost:4200",
+        allowCredentials = "true",
+        exposedHeaders = "Authorization")
 public class SupplyController {
 
     @Autowired

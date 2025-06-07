@@ -18,6 +18,9 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/SmartHarvest/recommendations")
+@CrossOrigin(origins = "http://localhost:4200",
+        allowCredentials = "true",
+        exposedHeaders = "Authorization")
 public class RecommendationController {
     @Autowired
     private RecommendationService recommendationService;

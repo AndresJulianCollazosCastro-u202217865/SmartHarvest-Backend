@@ -12,6 +12,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/SmartHarvest/costos")
+@CrossOrigin(origins = "http://localhost:4200",
+        allowCredentials = "true",
+        exposedHeaders = "Authorization")
 public class CostController {
     @Autowired
     private ICostService costService;

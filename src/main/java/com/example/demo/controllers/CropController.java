@@ -20,6 +20,9 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/SmartHarvest/cultivos")
+@CrossOrigin(origins = "http://localhost:4200",
+        allowCredentials = "true",
+        exposedHeaders = "Authorization")
 public class CropController {
     @Autowired
     private ICropService cropService;

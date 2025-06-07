@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/SmartHarvest/historical-data")
+@CrossOrigin(origins = "http://localhost:4200",
+        allowCredentials = "true",
+        exposedHeaders = "Authorization")
 public class HistoricalDataController {
     @Autowired
     private HistoricalDataService historicalDataService;
