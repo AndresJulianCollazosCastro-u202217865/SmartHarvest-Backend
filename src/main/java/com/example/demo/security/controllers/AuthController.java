@@ -2,8 +2,11 @@ package com.example.demo.security.controllers;
 
 import com.example.demo.security.dtos.AuthRequestDto;
 import com.example.demo.security.dtos.AuthResponseDTO;
+import com.example.demo.security.entities.User;
+import com.example.demo.security.repositories.UserRepository;
 import com.example.demo.security.services.CustomUserDetailsService;
 import com.example.demo.security.util.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -23,11 +27,14 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
     private final CustomUserDetailsService userDetailsService;
+    private final UserRepository userRepository;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil, CustomUserDetailsService userDetailsService) {
+
+    public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil, CustomUserDetailsService userDetailsService, UserRepository userRepository) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
         this.userDetailsService = userDetailsService;
+        this.userRepository = userRepository;
     }
 
     @PostMapping("/authenticate")
@@ -49,6 +56,9 @@ public class AuthController {
         AuthResponseDTO authResponseDTO = new AuthResponseDTO();
         authResponseDTO.setRoles(roles);
         authResponseDTO.setJwt(token);
+        User user = userRepository.findByUserName(userDetails.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+        authResponseDTO.setUserId(user.getUserId());
         return ResponseEntity.ok().headers(responseHeaders).body(authResponseDTO);
     }
 
