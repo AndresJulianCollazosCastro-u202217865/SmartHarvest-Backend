@@ -53,9 +53,45 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/SmartHarvest/authenticate").permitAll()
                         .requestMatchers(HttpMethod.POST, "/SmartHarvest/user").permitAll()
                         .requestMatchers(HttpMethod.GET, "/SmartHarvest/dashboard").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/SmartHarvest/assign-role/**").hasRole("ADMIN")
+
+                        // Costos
+                        .requestMatchers(HttpMethod.POST, "/SmartHarvest/costos").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/SmartHarvest/costos/**").hasAnyRole("USER", "ADMIN")
+
+                        // Cultivos
+                        .requestMatchers(HttpMethod.POST, "/SmartHarvest/cultivos").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/SmartHarvest/cultivos/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/SmartHarvest/cultivos/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/SmartHarvest/cultivos/**").hasAnyRole("USER", "ADMIN")
+
+                        .requestMatchers(HttpMethod.POST, "/SmartHarvest/historical-data").hasAnyRole("USER", "ADMIN")
+
+                        .requestMatchers(HttpMethod.POST, "/SmartHarvest/learning-resources").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/SmartHarvest/learning-resources/**").hasAnyRole("USER", "ADMIN")
+
+                        // Recommendations
+                        .requestMatchers(HttpMethod.POST, "/SmartHarvest/recommendations").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/SmartHarvest/recommendations").hasAnyRole("USER", "ADMIN")
+
+                        // Supplies
+                        .requestMatchers(HttpMethod.GET, "/SmartHarvest/supplies/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/SmartHarvest/supplies").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/SmartHarvest/supplies/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/SmartHarvest/supplies/**").hasAnyRole("USER", "ADMIN")
+
+                        // Support
+                        .requestMatchers(HttpMethod.POST, "/SmartHarvest/support").hasAnyRole("USER", "ADMIN")
+
+                        // Alertas
+                        .requestMatchers(HttpMethod.GET, "/SmartHarvest/alertas/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/SmartHarvest/alertas").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/SmartHarvest/alertas/logical-delete/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/SmartHarvest/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/SmartHarvest/alertas/**").hasAnyRole("USER", "ADMIN")
+
+                        // Rol de asignación
+                        .requestMatchers(HttpMethod.POST, "/SmartHarvest/assign-role/**").hasRole("ADMIN")
+
+                        // Todas las demás deben estar autenticadas
                         .requestMatchers("/SmartHarvest/**").authenticated()
                         .anyRequest().authenticated()
                 )
