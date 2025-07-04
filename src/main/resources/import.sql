@@ -25,15 +25,25 @@ INSERT INTO historical_data ( user_id, h_date, crop_id, wa_id) VALUES ( 1, '2025
 INSERT INTO historical_data ( user_id, h_date, crop_id, wa_id) VALUES (1, '2025-06-02', 2, 2);
 INSERT INTO historical_data ( user_id, h_date, crop_id, wa_id) VALUES ( 1, '2025-06-04', 3, 3);
 
-INSERT INTO learningresources ( userid, lr_title, lr_description, lr_category, lr_link) VALUES ( 1, 'Introducción a imágenes satelitales',  'Cómo interpretar NDVI y otros índices.',     'Satellite Data', 'https://quantumcorpsage.io/ndvi-guide');
-INSERT INTO learningresources ( userid, lr_title, lr_description, lr_category, lr_link) VALUES ( 1, 'Análisis de suelos con Python',      'Script básico para clasificar pH y nutrientes.', 'Soil Analytics', 'https://github.com/QCS/soil-python');
-INSERT INTO learningresources ( userid, lr_title, lr_description, lr_category, lr_link) VALUES ( 1, 'Modelos de predicción meteorológica', 'Uso de modelos ARIMA para forecast de lluvias.', 'Meteorology',     'https://qcs-blog.io/meteorology-arima');
-INSERT INTO learningresources ( userid, lr_title, lr_description, lr_category, lr_link) VALUES ( 1, 'Buenas prácticas de riego',           'Optimización de riego por goteo y pivote central.', 'Irrigation',      'https://quantumcorpsage.io/irrigation');
-INSERT INTO learningresources ( userid, lr_title, lr_description, lr_category, lr_link) VALUES (1, 'Fundamentos de machine learning',     'Curso gratuito de ML aplicado a agricultura.',  'Machine Learning', 'https://coursera.org/qcs-ml-agri');
+INSERT INTO learningresources (userid, lr_title, lr_description, lr_category, lr_link) VALUES (1, 'Riego Inteligente con Inteligencia Artificial', 'Explica cómo robots y sensores permiten riego inteligente eficiente.', 'explicativo', 'https://www.youtube.com/watch?v=6WcvCDSU5CU');
+INSERT INTO learningresources (userid, lr_title, lr_description, lr_category, lr_link) VALUES (1, '¿Qué es una imagen NDVI?', 'Definición e interpretación de NDVI para monitorear la salud vegetal.', 'informativo', 'https://www.youtube.com/watch?v=vBH_2EdfESE');
+INSERT INTO learningresources (userid, lr_title, lr_description, lr_category, lr_link) VALUES (1, 'Regando SMART: RIEGO DE PRECISIÓN', 'Ejemplifica uso de datos y satélites para riego de precisión.', 'tutorial', 'https://www.youtube.com/watch?v=JLJ61dyMuRQ');
+INSERT INTO learningresources (userid, lr_title, lr_description, lr_category, lr_link) VALUES (1, 'IA y sensores remotos para estimación del área sembrada', 'Uso de IA y sensores para medir plantaciones de arroz.', 'informativo', 'https://www.youtube.com/watch?v=c-vkCe8RGW8');
+INSERT INTO learningresources (userid, lr_title, lr_description, lr_category, lr_link) VALUES (1, 'Uso de tecnología para un manejo eficiente del riego', 'Repasa tecnologías modernas para optimizar el riego agrícola.', 'explicativo', 'https://www.youtube.com/watch?v=FVQ4t8dARRs');
 
-INSERT INTO recommendations ( user_id, r_Title, r_Description, r_Category) VALUES ( 1, 'Ajustar dosis de nitrógeno', 'Reducir N en un 10% por alta humedad.',   'FERTILIZATION');
-INSERT INTO recommendations ( user_id, r_Title, r_Description, r_Category) VALUES ( 1, 'Programar riegos nocturnos', 'Evitar horas de insolation máxima.',      'IRRIGATION');
-INSERT INTO recommendations ( user_id, r_Title, r_Description, r_Category) VALUES ( 1, 'Rotación con leguminosas',   'Plantación de frijol INIA en lote 3.',   'CROP_ROTATION');
+
+
+
+INSERT INTO recommendations ( user_id, crop_id, r_Title, r_Description, r_Category) VALUES (1, 1, 'Ajustar fertilización nitrogenada', 'Disminuir nitrógeno en un 10% debido a suelos con alta retención de humedad.', 'FERTILIZATION');
+INSERT INTO recommendations ( user_id, crop_id, r_Title, r_Description, r_Category) VALUES (1, 1, 'Revisión de humedad del suelo', 'Usar tensiómetros para ajustar la frecuencia de riego.', 'IRRIGATION');
+INSERT INTO recommendations ( user_id, crop_id, r_Title, r_Description, r_Category) VALUES (1, 1, 'Rotación con leguminosas', 'Plantación de frijol INIA en lote 3.', 'CROP_ROTATION');
+INSERT INTO recommendations ( user_id, crop_id, r_Title, r_Description, r_Category) VALUES (1, 2, 'Riego nocturno controlado', 'Programar riegos entre las 20:00 y 4:00 para minimizar evaporación.', 'IRRIGATION');
+INSERT INTO recommendations ( user_id, crop_id, r_Title, r_Description, r_Category) VALUES (1, 2, 'Aplicar silicio foliar', 'Mejorar resistencia a enfermedades del tallo con silicio semanal.', 'FERTILIZATION');
+INSERT INTO recommendations ( user_id, crop_id, r_Title, r_Description, r_Category) VALUES (1, 2, 'Evitar siembra profunda', 'Mantener la profundidad de siembra entre 2 y 3 cm para germinación óptima.', 'CROP_ROTATION');
+INSERT INTO recommendations ( user_id, crop_id, r_Title, r_Description, r_Category) VALUES ( 1, 3, 'Riego por goteo', 'Mejorar eficiencia hídrica y evitar enfermedades foliares.', 'IRRIGATION');
+INSERT INTO recommendations ( user_id, crop_id, r_Title, r_Description, r_Category) VALUES ( 1, 4, 'Aplicar fertilización balanceada', 'Usar mezcla NPK 15-15-15 antes del aporque.', 'FERTILIZATION');
+INSERT INTO recommendations ( user_id, crop_id, r_Title, r_Description, r_Category) VALUES ( 1, 4, 'Rotación con cebada', 'Cultivar cebada para romper el ciclo de patógenos del suelo.', 'CROP_ROTATION');
+INSERT INTO recommendations ( user_id, crop_id, r_Title, r_Description, r_Category) VALUES ( 1, 5, 'Aplicar fósforo en fondo de surco', 'Favorece el desarrollo radic
 
 INSERT INTO supply (crop_id, supply_name, supply_quantity, supply_unit, supply_description) VALUES (1, 'Tubería de polietileno 16mm', 200, 'metros', 'Para sistema de riego por goteo.');
 INSERT INTO supply (crop_id, supply_name, supply_quantity, supply_unit, supply_description) VALUES (2, 'Boquillas de goteo 4L/h',      500, 'unidades', 'Emitidores autocompensantes.');

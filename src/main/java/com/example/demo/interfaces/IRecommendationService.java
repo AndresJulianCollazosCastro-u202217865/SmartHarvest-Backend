@@ -8,4 +8,5 @@ import java.util.List;
 public interface IRecommendationService {
     RecommendationDto saveRecommendation(RecommendationDto recommendationDto);
     List<RecommendationDto> getRecommendation();
+    
 }

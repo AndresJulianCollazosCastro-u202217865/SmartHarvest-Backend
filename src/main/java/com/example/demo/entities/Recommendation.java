@@ -19,9 +19,14 @@ public class Recommendation {
     private Long recommendationId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User user;
+    
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "crop_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "recommendations"})
+    private Crop crop;
 
     @Column(name = "rTitle", length = Integer.MAX_VALUE)
     private String rTitle;
@@ -47,6 +52,14 @@ public class Recommendation {
 
     public void setUser(User user) {
         this.user = user;
+    }
+    
+    public Crop getCrop() {
+        return crop;
+    }
+
+    public void setCrop(Crop crop) {
+        this.crop = crop;
     }
 
     public String getrTitle() {

@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 
 @NoArgsConstructor
@@ -20,6 +21,7 @@ public class CropDto implements Serializable {
     LocalDate endDate;
     Long nextCropId;
     UserDto user;
+
 
     public Long getId() {
         return id;
@@ -92,4 +94,6 @@ public class CropDto implements Serializable {
     public void setUser(UserDto user) {
         this.user = user;
     }
+
+
 }

@@ -1,5 +1,6 @@
 package com.example.demo.dtos;
 
+import com.example.demo.entities.RecommendationCategory;
 import com.example.demo.security.dtos.UserDto;
 import com.example.demo.security.entities.User;
 import lombok.AllArgsConstructor;
@@ -15,11 +16,12 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RecommendationDto implements Serializable {
-    Long recommendationId;
-    UserDto user;
-    String rTitle;
-    String rDescription;
-    Object rCategory;
+    private Long recommendationId;
+    private Long userId;
+    private String rTitle;
+    private String rDescription;
+    private RecommendationCategory rCategory;
+    private Long cropId;
 
     public Long getRecommendationId() {
         return recommendationId;
@@ -29,15 +31,23 @@ public class RecommendationDto implements Serializable {
         this.recommendationId = recommendationId;
     }
 
-    public UserDto getUser() {
-        return user;
-    }
+	public Long getUserId() {
+		return userId;
+	}
 
-    public void setUser(UserDto user) {
-        this.user = user;
-    }
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
-    public String getrTitle() {
+	public Long getCropId() {
+		return cropId;
+	}
+
+	public void setCropId(Long cropId) {
+		this.cropId = cropId;
+	}
+
+	public String getrTitle() {
         return rTitle;
     }
 
@@ -53,11 +63,11 @@ public class RecommendationDto implements Serializable {
         this.rDescription = rDescription;
     }
 
-    public Object getrCategory() {
+    public RecommendationCategory getrCategory() {
         return rCategory;
     }
 
-    public void setrCategory(Object rCategory) {
+    public void setrCategory(RecommendationCategory rCategory) {
         this.rCategory = rCategory;
     }
 }

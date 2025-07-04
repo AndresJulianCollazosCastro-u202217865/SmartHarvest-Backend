@@ -2,6 +2,8 @@ package com.example.demo.entities;
 
 import com.example.demo.security.dtos.UserDto;
 import com.example.demo.security.entities.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -10,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
@@ -46,6 +49,10 @@ public class Crop {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+    
+    /*@OneToMany(mappedBy = "crop", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("crop")
+    private List<Recommendation> recommendations;*/
 
     public Long getId() {
         return id;
@@ -119,10 +126,11 @@ public class Crop {
         this.user = user;
     }
 
-/*
- TODO [Reverse Engineering] create field to map the 'crop_type' column
- Available actions: Define target Java type | Uncomment as is | Remove column mapping
-    @Column(name = "crop_type", columnDefinition = "crop_type_enum")
-    private Object cropType;
-*/
+	/*public List<Recommendation> getRecommendations() {
+		return recommendations;
+	}
+
+	public void setRecommendations(List<Recommendation> recommendations) {
+		this.recommendations = recommendations;
+	}*/
 }
