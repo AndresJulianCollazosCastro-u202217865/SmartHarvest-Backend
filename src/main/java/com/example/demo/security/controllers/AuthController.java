@@ -22,7 +22,9 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/SmartHarvest")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins  = "${ip.frontend}",
+        allowCredentials = "true",
+        exposedHeaders = "Authorization")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;

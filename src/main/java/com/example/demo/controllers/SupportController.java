@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/SmartHarvest/support")
-@CrossOrigin(origins = "http://localhost:4200",
+@CrossOrigin(origins  = "${ip.frontend}",
         allowCredentials = "true",
         exposedHeaders = "Authorization")
 public class SupportController {

@@ -24,7 +24,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/SmartHarvest/alertas")
-@CrossOrigin(origins = "http://localhost:4200",
+@CrossOrigin(origins  = "${ip.frontend}",
         allowCredentials = "true",
         exposedHeaders = "Authorization")
 public class WeatherAlertController {

@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/SmartHarvest/supplies")
-@CrossOrigin(origins = "http://localhost:4200",
+@CrossOrigin(origins  = "${ip.frontend}",
         allowCredentials = "true",
         exposedHeaders = "Authorization")
 public class SupplyController {

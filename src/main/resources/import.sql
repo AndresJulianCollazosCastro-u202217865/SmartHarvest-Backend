@@ -43,7 +43,6 @@ INSERT INTO recommendations ( user_id, crop_id, r_Title, r_Description, r_Catego
 INSERT INTO recommendations ( user_id, crop_id, r_Title, r_Description, r_Category) VALUES ( 1, 3, 'Riego por goteo', 'Mejorar eficiencia hídrica y evitar enfermedades foliares.', 'IRRIGATION');
 INSERT INTO recommendations ( user_id, crop_id, r_Title, r_Description, r_Category) VALUES ( 1, 4, 'Aplicar fertilización balanceada', 'Usar mezcla NPK 15-15-15 antes del aporque.', 'FERTILIZATION');
 INSERT INTO recommendations ( user_id, crop_id, r_Title, r_Description, r_Category) VALUES ( 1, 4, 'Rotación con cebada', 'Cultivar cebada para romper el ciclo de patógenos del suelo.', 'CROP_ROTATION');
-INSERT INTO recommendations ( user_id, crop_id, r_Title, r_Description, r_Category) VALUES ( 1, 5, 'Aplicar fósforo en fondo de surco', 'Favorece el desarrollo radic
 
 INSERT INTO supply (crop_id, supply_name, supply_quantity, supply_unit, supply_description) VALUES (1, 'Tubería de polietileno 16mm', 200, 'metros', 'Para sistema de riego por goteo.');
 INSERT INTO supply (crop_id, supply_name, supply_quantity, supply_unit, supply_description) VALUES (2, 'Boquillas de goteo 4L/h',      500, 'unidades', 'Emitidores autocompensantes.');
